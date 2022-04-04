@@ -1,0 +1,57 @@
+
+*{
+    background-color: rgb(38, 38, 44);
+    color: rgb(236, 243, 243);
+}
+
+#formulario #formulario-div1{
+    display: flex;
+    justify-content: space-around;
+}
+#primerDiv{
+    padding-top:20px
+}
+#div-table{
+    margin: 1.5em;
+}
+
+.input-add-product{
+   padding: 0.5em 0em 0.5em 0.5em;
+}
+.input-edit-product{
+    border: none;
+}
+#formulario #formulario-div2{
+    margin: 1.5em;
+}
+#btn-add{
+    padding: 0.5em 1em 0.5em 1em;
+    background-color: rgb(65, 70, 97);
+    border-radius: 0.5em;
+    border: solid 1px rgb(94, 99, 128);
+    display: block;
+    width: 100%;
+}
+#container-trash-edit{
+    display: flex;
+    justify-content: space-around;
+}
+
+#button-trash{
+    margin-left: 10px;
+    border: none;
+    background-color: #2C3034
+}
+
+#button-edit{
+    border: none;
+    background-color: #2C3034
+}
+
+svg{
+    background-color: #2C3034
+}
+
+#reseteador{
+    display:none;
+}

@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OrganizadorCompras';
+
+  totalActual:number=0;
+
+  actualizarTotal(sumatoria:number){
+    this.totalActual=sumatoria;
+  }
+
 }

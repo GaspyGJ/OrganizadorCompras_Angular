@@ -1,0 +1,9 @@
+*{
+    color: rgb(236, 243, 243);
+    
+}
+div{
+    display: flex;
+    justify-content: center;
+}
+
