@@ -25,4 +25,14 @@ export class ProductoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setNombre(nombre:string){
+    this.nombre=nombre;
+  }
+  setPrecio(precio:string){
+    this.precio=parseInt(precio);
+  }
+  setCantidad(cantidad:string){
+    this.cantidad=parseInt(cantidad);
+  }
+
 }

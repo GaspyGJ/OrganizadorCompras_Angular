@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductoComponent } from '../producto/producto.component';
 
 
@@ -15,7 +14,7 @@ export class SecondComponentComponent implements OnInit {
   flagEdit:boolean=false;
   numberEdit:number|null=null;
 
-  productos:ProductoComponent[]=[];
+  productos:ProductoComponent[]=[new ProductoComponent('producto1',1,1),new ProductoComponent('producto2 mucho producto tiene el producto 2',2,2)];
 
   constructor(){}
 
@@ -31,10 +30,8 @@ export class SecondComponentComponent implements OnInit {
       let nuevoProducto=new ProductoComponent(nombreProducto,parseInt(cantidadProducto),parseInt(precioProducto));
       this.productos.push(nuevoProducto);
       
-      //recorro la lista y sumo el total actual
-      this.productos.forEach(producto=>
-          this.totalActual+=producto.precio*producto.cantidad
-        );
+      //sumo el precio del producto al total
+      this.totalActual+=nuevoProducto.precio*nuevoProducto.cantidad
 
       //hago click en el reseteador para que vuelva a cargar los inputs y no queden rellenos
       reseteador.click()
@@ -54,6 +51,20 @@ export class SecondComponentComponent implements OnInit {
   modificarProducto(producto:ProductoComponent,posicion:number){
     this.flagEdit=true;
     this.numberEdit=posicion;
+  }
+
+  editAccepted(producto:ProductoComponent,posicion:number,nombreProducto:string,cantidadProducto:string,precioProducto:string){
+    
+    this.totalActual-=producto.precio*producto.cantidad
+
+    producto.setCantidad(cantidadProducto);
+    producto.setNombre(nombreProducto);
+    producto.setPrecio(precioProducto);
+
+    this.totalActual+=producto.precio*producto.cantidad
+
+    this.flagEdit=false;
+    this.numberEdit=null;
   }
 
 
