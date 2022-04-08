@@ -1,0 +1,29 @@
+*{
+    color: rgb(236, 243, 243);
+    font-family: Arial, sans-serif;
+    line-height: 2.5em;
+}
+
+h3{
+    text-align: center;
+}
+#container-producto-checkbox{
+    margin-left: 25%;
+    width: 50%;
+    display: flex;
+    justify-content:space-between;
+    align-items: baseline;
+}
+#container-btn-finish{
+    margin: 1em;
+}
+
+#btn-finish{
+    padding: 0.5em 1em 0.5em 1em;
+    background-color: rgb(65, 70, 97);
+    border-radius: 0.5em;
+    border: solid 1px rgb(94, 99, 128);
+    display: block;
+    width: 100%;
+    margin-bottom: 8em;
+}

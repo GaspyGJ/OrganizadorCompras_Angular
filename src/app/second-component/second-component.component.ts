@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FirstComponentComponent } from '../first-component/first-component.component';
 import { ProductoComponent } from '../producto/producto.component';
-
 
 @Component({
   selector: 'app-second-component',
@@ -9,62 +10,96 @@ import { ProductoComponent } from '../producto/producto.component';
 })
 export class SecondComponentComponent implements OnInit {
 
-  totalActual:number=0;
+  totalActual: number;
+  flagEdit: boolean;
+  numberEdit: number | null;
+  //[new ProductoComponent('producto1', 1, 1), new ProductoComponent('producto2 mucho producto tiene el producto 2', 2, 2)];
+  listaProductosEnTabla: ProductoComponent[];
+  listaProductosEnTabla2: string[]; //solo existe porq necesito una lista de prodcutos en tabla con solo los nombres
+  static listaProductosSeleccionados: string[]=[];
 
-  flagEdit:boolean=false;
-  numberEdit:number|null=null;
+  get getListaProductosSeleccionados(){
+    return SecondComponentComponent.listaProductosSeleccionados;
+  }
 
-  productos:ProductoComponent[]=[new ProductoComponent('producto1',1,1),new ProductoComponent('producto2 mucho producto tiene el producto 2',2,2)];
-
-  constructor(){}
+  flagTerminado=false;
 
   ngOnInit(): void {}
 
-  addProductoToTable(reseteador: HTMLInputElement,nombreProducto:string,cantidadProducto:string,precioProducto:string){
+  constructor(private router?:Router) {
+    this.flagEdit = false;
+    this.numberEdit = null;
+    this.totalActual = 0;
+    this.listaProductosEnTabla=[]; 
+    this.listaProductosEnTabla2=[];
+  }
+
+  recibirListaProductosActivos(listProductosActivos:string[]){
+    SecondComponentComponent.listaProductosSeleccionados=listProductosActivos;
+  }
+
+
+  addProductoToTable(reseteador: HTMLInputElement, nombreProducto: string, cantidadProducto: string, precioProducto: string) {
 
     //Si estan todos los campos completados
-    if(nombreProducto!='' && cantidadProducto!='' && precioProducto!='' && 
-    nombreProducto!=' ' && cantidadProducto!=' ' && precioProducto!=' ')
-    {
+
+    if (nombreProducto != '' && cantidadProducto != '' && precioProducto != '' &&
+      nombreProducto != ' ' && cantidadProducto != ' ' && precioProducto != ' ') {
       //creo un producto y lo agrego a la lista
-      let nuevoProducto=new ProductoComponent(nombreProducto,parseInt(cantidadProducto),parseInt(precioProducto));
-      this.productos.push(nuevoProducto);
-      
+      let nuevoProducto = new ProductoComponent(nombreProducto, parseInt(cantidadProducto), parseInt(precioProducto));
+      this.listaProductosEnTabla.push(nuevoProducto);
+      this.listaProductosEnTabla2.push(nuevoProducto.nombre); 
       //sumo el precio del producto al total
-      this.totalActual+=nuevoProducto.precio*nuevoProducto.cantidad
+      this.totalActual += nuevoProducto.precio * nuevoProducto.cantidad
 
       //hago click en el reseteador para que vuelva a cargar los inputs y no queden rellenos
       reseteador.click()
-      
     }
 
-    else{
-        alert('Hay datos en BLANCO');
+    else {
+      alert('Hay datos en BLANCO');
     }
+
   }
 
-  eliminarProducto(producto:ProductoComponent,posicion:number){
-    this.productos.splice(posicion,1);
-    this.totalActual-=producto.precio*producto.cantidad
+  eliminarProducto(producto: ProductoComponent, posicion: number) {
+    this.listaProductosEnTabla.splice(posicion, 1);
+    this.listaProductosEnTabla2.splice(posicion, 1);
+    this.totalActual -= producto.precio * producto.cantidad
   }
 
-  modificarProducto(producto:ProductoComponent,posicion:number){
-    this.flagEdit=true;
-    this.numberEdit=posicion;
+  modificarProducto(producto: ProductoComponent, posicion: number) {
+    this.flagEdit = true;
+    this.numberEdit = posicion;
   }
 
-  editAccepted(producto:ProductoComponent,posicion:number,nombreProducto:string,cantidadProducto:string,precioProducto:string){
-    
-    this.totalActual-=producto.precio*producto.cantidad
+  editAccepted(producto: ProductoComponent, posicion: number, nombreProducto: string, cantidadProducto: string, precioProducto: string) {
+
+    this.totalActual -= producto.precio * producto.cantidad
 
     producto.setCantidad(cantidadProducto);
     producto.setNombre(nombreProducto);
     producto.setPrecio(precioProducto);
 
-    this.totalActual+=producto.precio*producto.cantidad
+    this.totalActual += producto.precio * producto.cantidad
 
-    this.flagEdit=false;
-    this.numberEdit=null;
+    this.flagEdit = false;
+    this.numberEdit = null;
+  }
+
+  getListProductosRestantes():string[]{
+    
+    let listaProductosFaltantes=this.getListaProductosSeleccionados.filter(
+      i=> !(this.listaProductosEnTabla2.includes(i)));
+        
+      console.log('lista producto faltantes=',listaProductosFaltantes);
+    return listaProductosFaltantes;
+    //listaProductosEnTabla TIPO PRODUCTO
+    //listaProductosSeleccionados TIPO STRING
+  }
+
+  volverArmarLista():void{
+    this.router?.navigate([""]);
   }
 
 

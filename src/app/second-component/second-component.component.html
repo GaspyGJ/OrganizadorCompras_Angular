@@ -4,14 +4,24 @@
 <!-- CSS de bootstrap fin-->
 
 <div id="primerDiv">
-    <p>Agregar Producto:</p>
+    <div id="p-buttom-volver">
+        <p>Agregar Producto:</p>
+        <button (click)="volverArmarLista()">Volver</button>
+    </div>
     <form id="formulario">
         <div id="formulario-div1">
-            <input #nombreProducto class="input-add-product" placeholder="Nombre Producto">
+            <!--este data list se asocia despues mediante "list", en el input de type="search"-->
+                    <datalist id="productosSeleccionados">
+                        <!-- lo puse dentro del div porq el for dentro de <datalist> no funcionaba bien-->
+                        <div *ngFor="let productoS of getListaProductosSeleccionados;">
+                            <option value={{productoS}}></option>
+                        </div>
+                    </datalist>  
+            <input list="productosSeleccionados" type="search" #nombreProducto class="input-add-product" placeholder="Nombre Producto">
             <input #cantidadProducto class="input-add-product" type="number" placeholder="Cantidad total">
             <input #precioProducto class="input-add-product" type="number" placeholder="Precio Unidad">
         </div>
-
+        
         <div id="formulario-div2">
             <button id="btn-add"
                 (click)="addProductoToTable(reseteador,nombreProducto.value,cantidadProducto.value,precioProducto.value)">
@@ -22,7 +32,7 @@
     </form>
 </div>
 <div id="div-table">
-    <table  id="tablaProductos" class="table table-striped table-dark">
+     <table  id="tablaProductos" class="table table-striped table-dark">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -35,9 +45,7 @@
         </thead>
         <tbody>
 
-
-
-            <tr *ngFor="let producto of productos; let i=index">
+            <tr *ngFor="let producto of listaProductosEnTabla; let i=index">
 
                 <div *ngIf="flagEdit && i==numberEdit; then Edit else NoEdit"></div>
                 <ng-template #Edit>
@@ -46,7 +54,8 @@
                     <td><input #cantidadProducto class="input-edit-product" type="number" value={{producto.cantidad}}></td>
                     <td><input #precioProducto class="input-edit-product" type="number" value={{producto.precio}}></td>
                     <td> -- $</td>
-                    <button  id="accept-edit" (click)="editAccepted(producto,i,nombreProducto.value,cantidadProducto.value,precioProducto.value)">Ok</button>
+                    <td><button  id="accept-edit" (click)="editAccepted(producto,i,nombreProducto.value,cantidadProducto.value,precioProducto.value)">Ok</button></td>
+                    
                 </ng-template>
 
                 <ng-template #NoEdit>
@@ -55,35 +64,42 @@
                     <td>{{producto.cantidad}} </td>
                     <td>{{producto.precio}} $ </td>
                     <td>{{producto.precio*producto.cantidad}} $</td>
-                    <td id="container-trash-edit">
-
-                        <button id="button-edit" (click)="modificarProducto(producto,i)">
-                            <svg id="svg-edit" xmlns="http://www.w3.org/2000/svg" width="14" height="16" fill="currentColor"
-                                class="bi bi-pencil" viewBox="0 0 16 16">
-                                <path
-                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                            </svg>
-                        </button>
-
-                        <button id="button-trash" (click)="eliminarProducto(producto,i)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" fill="currentColor"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                <path fill-rule="evenodd"
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                            </svg>
-                        </button>
-
+                    <td >
+                        <div id="container-trash-edit">
+                            <button id="button-edit" (click)="modificarProducto(producto,i)">
+                                <svg id="svg-edit" xmlns="http://www.w3.org/2000/svg" width="14" height="16" fill="currentColor"
+                                    class="bi bi-pencil" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                </svg>
+                            </button>
+    
+                            <button id="button-trash" (click)="eliminarProducto(producto,i)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                </svg>
+                            </button>
+    
+                        </div>
                     </td>
                 </ng-template>
-
             </tr>
+
         </tbody>
     </table>
-</div>
-
-<div>
-
     <p>Total Actual : {{totalActual}} $</p>
 </div>
+<div id="div-falta">
+    <br>
+    Falta Agregar:
+    <hr>
+    <ul id="lista-faltantes"*ngFor="let producto of getListProductosRestantes(); let i=index">
+		<li class="li-faltantes">{{producto}}</li>
+        <hr>
+    </ul>
+</div>
+ 

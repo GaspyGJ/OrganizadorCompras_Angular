@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SecondComponentComponent } from './second-component/second-component.component';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +9,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OrganizadorCompras';
-
-  totalActual:number=0;
-
-  actualizarTotal(sumatoria:number){
-    this.totalActual=sumatoria;
-  }
-
 }

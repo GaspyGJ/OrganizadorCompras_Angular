@@ -3,6 +3,26 @@
     background-color: rgb(38, 38, 44);
     color: rgb(236, 243, 243);
 }
+p{ /*nose porq los P agregaban espacios en blacno*/
+    margin: 0;
+}
+
+#p-buttom-volver{
+    display: flex;
+    justify-content: space-between;
+    align-items:baseline;
+    margin-right: 1em;
+
+}
+
+#p-buttom-volver button{
+    padding: 0.1em 0.5em 0.1em 0.5em;
+    background-color: rgb(65, 70, 97);
+    border-radius: 0.5em;
+    border: solid 1px rgb(94, 99, 128);
+    font-size: 0.8em;
+}
+
 
 #formulario #formulario-div1{
     display: flex;
@@ -19,7 +39,8 @@
     border: none;
 }
 #formulario #formulario-div2{
-    margin: 1.5em;
+    margin-top: 1.5em;
+  
 }
 #btn-add{
     padding: 0.5em 1em 0.5em 1em;
@@ -31,32 +52,37 @@
 }
 #container-trash-edit{
     display: flex;
-    justify-content: space-around;
+    background-color: transparent;
+}
+svg{
+    background-color: transparent;
 }
 #button-trash{
     margin-left: 10px;
-    border: none;
-    background-color: #2C3034;
+    background-color: transparent;
 }
 #button-edit{
-    border: none;
-    background-color: #2C3034;
+    background-color: transparent;
 }
 #accept-edit{
-    border:none;
-    background-color: #2C3034;
-}
-svg{
     background-color: transparent;
 }
 #reseteador{
     display:none;
 }
-#div-table{
-    /*porq afecta cuando esta el media query de abajo?*/
-    margin: 10px;
+
+#lista-faltantes{
+    margin-left: 10%;
+    list-style:none;
 }
 
+hr{
+ background-color: white;
+}
+
+.li-faltantes{
+    list-style: inside;
+}
 /*************************************************************/
 @media screen and ( max-width: 668px ){
     #formulario #formulario-div1{
@@ -72,17 +98,9 @@ svg{
     .input-edit-product{
         width: 5em;
         border: none;
+        background-color: rgb(53, 58, 58);
     }
-    #div-table{
-        margin:0px;
-    }
-    svg{
-        background-color: transparent;
-        color:transparent;
-    }
-    #svg-edit{
-       
-    }
+
 }
 
 
