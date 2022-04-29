@@ -48,7 +48,8 @@ p{ /*nose porq los P agregaban espacios en blacno*/
     border-radius: 0.5em;
     border: solid 1px rgb(94, 99, 128);
     display: block;
-    width: 100%;
+    width: calc(100% - 2.5em);
+    margin: 1em 1em 0 1em;
 }
 #container-trash-edit{
     display: flex;
@@ -59,10 +60,13 @@ svg{
 }
 #button-trash{
     margin-left: 10px;
+    border: none;
     background-color: transparent;
 }
 #button-edit{
+    border: none;
     background-color: transparent;
+    margin-right: 1em;
 }
 #accept-edit{
     background-color: transparent;
@@ -88,6 +92,7 @@ hr{
     #formulario #formulario-div1{
         display: flex;
         flex-direction: column; 
+        margin: 1em 1em 0 1em;
     }
     #tablaProductos{
         font-size: 0.7em;

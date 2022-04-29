@@ -47,7 +47,7 @@ export class FirstComponentComponent implements OnInit {
       'Pasta de Dientes', 'Acondicionador', 'Shampoo', 'Jabon Banio',
       'Servilleta Papel', 'Papel Higenico',
       'Jugo Tang Varios',
-      'Masitas Varias'];
+      'Masitas Varias'].sort();
   }
   ngOnInit(): void {}
 
