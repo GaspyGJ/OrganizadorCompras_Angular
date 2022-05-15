@@ -5,34 +5,49 @@
 
 <div id="primerDiv">
     <div id="p-buttom-volver">
-        <p>Agregar Producto:</p>
+        <h3>Agregar Productos</h3>
+        
         <button (click)="volverArmarLista()">Volver</button>
-    </div>
+    </div>  
     <form id="formulario">
         <div id="formulario-div1">
             <!--este data list se asocia despues mediante "list", en el input de type="search"-->
-                    <datalist id="productosSeleccionados">
-                        <!-- lo puse dentro del div porq el for dentro de <datalist> no funcionaba bien-->
-                        <div *ngFor="let productoS of getListaProductosSeleccionados;">
-                            <option value={{productoS}}></option>
-                        </div>
-                    </datalist>  
-            <input list="productosSeleccionados" type="search" #nombreProducto class="input-add-product" placeholder="Nombre Producto">
-            <input #cantidadProducto class="input-add-product" type="number" placeholder="Cantidad total">
-            <input #precioProducto class="input-add-product" type="number" placeholder="Precio Unidad">
+            <datalist id="productosSeleccionados">
+                <!-- lo puse dentro del div porq el for dentro de <datalist> no funcionaba bien-->
+                <div *ngFor="let productoS of getListaProductosSeleccionados;">
+                    <option value={{productoS}}></option>
+                </div>
+            </datalist>
+            <p  class="p-input">Nombre Producto:</p>
+            <input list="productosSeleccionados" type="search" #nombreProducto class="input-add-product"
+                placeholder="Nombre del Producto">
+            <div id="formulario-div2">
+                <div id="formulario-divCantidad">
+                    <p class="p-input">Cantidad:</p>
+                    <input #cantidadProducto class="input-add-product" type="number" value="1">
+                </div>
+                <div id="formulario-divPrecio">
+                    <p class="p-input">Precio Unidad:</p>
+                    <input #precioProducto class="input-add-product" type="number" placeholder="Precio por unidad">
+                </div>
+            </div>
+
         </div>
-        
-        <div id="formulario-div2">
+
+        <div id="formulario-div3">
             <button id="btn-add"
                 (click)="addProductoToTable(reseteador,nombreProducto.value,cantidadProducto.value,precioProducto.value)">
-                Agregar</button>
+                Agregar al Carrito
+             </button>
+            <!--no me acuerdo para que era ese "Reseteador"-->
             <input #reseteador id="reseteador" type="reset" value="Borrar">
         </div>
 
     </form>
 </div>
 <div id="div-table">
-     <table  id="tablaProductos" class="table table-striped table-dark">
+    <!-- table table-striped , para fila de distinto color-->
+    <table id="tablaProductos" class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -51,11 +66,21 @@
                 <ng-template #Edit>
                     <th scope="row">{{i+1}}</th>
                     <td><input #nombreProducto class="input-edit-product" value={{producto.nombre}}></td>
-                    <td><input #cantidadProducto class="input-edit-product" type="number" value={{producto.cantidad}}></td>
+                    <td><input #cantidadProducto class="input-edit-product" type="number" value={{producto.cantidad}}>
+                    </td>
                     <td><input #precioProducto class="input-edit-product" type="number" value={{producto.precio}}></td>
                     <td> -- $</td>
-                    <td><button  id="accept-edit" (click)="editAccepted(producto,i,nombreProducto.value,cantidadProducto.value,precioProducto.value)">Ok</button></td>
-                    
+                    <td><button id="accept-edit"
+                            (click)="editAccepted(producto,i,nombreProducto.value,cantidadProducto.value,precioProducto.value)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check2-square" viewBox="0 0 16 16">
+                                <path
+                                    d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+                                <path
+                                    d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+                            </svg></button>
+                    </td>
+
                 </ng-template>
 
                 <ng-template #NoEdit>
@@ -64,16 +89,16 @@
                     <td>{{producto.cantidad}} </td>
                     <td>{{producto.precio}} $ </td>
                     <td>{{producto.precio*producto.cantidad}} $</td>
-                    <td >
+                    <td>
                         <div id="container-trash-edit">
                             <button id="button-edit" (click)="modificarProducto(producto,i)">
-                                <svg id="svg-edit" xmlns="http://www.w3.org/2000/svg" width="14" height="16" fill="currentColor"
-                                    class="bi bi-pencil" viewBox="0 0 16 16">
+                                <svg id="svg-edit" xmlns="http://www.w3.org/2000/svg" width="14" height="16"
+                                    fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path
                                         d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                 </svg>
                             </button>
-    
+
                             <button id="button-trash" (click)="eliminarProducto(producto,i)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" fill="currentColor"
                                     viewBox="0 0 16 16">
@@ -83,7 +108,7 @@
                                         d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                                 </svg>
                             </button>
-    
+
                         </div>
                     </td>
                 </ng-template>
@@ -91,15 +116,14 @@
 
         </tbody>
     </table>
-    <p>Total Actual : {{totalActual}} $</p>
+    <p class="p-abajo">Total Actual en el Carrito: {{totalActual}} $</p>
 </div>
 <div id="div-falta">
     <br>
-    Falta Agregar:
+    <p class="p-abajo">Falta Agregar al Carrito:</p>
     <hr>
-    <ul id="lista-faltantes"*ngFor="let producto of getListProductosRestantes(); let i=index">
-		<li class="li-faltantes">{{producto}}</li>
+    <ul id="lista-faltantes" *ngFor="let producto of getListProductosRestantes(); let i=index">
+        <li class="li-faltantes">{{producto}}</li>
         <hr>
     </ul>
 </div>
- 

@@ -1,10 +1,10 @@
 <div id="main-container">
-    <h3>Seleccionar Productos para la Lista:</h3>
+    <h3>SELECCIONAR PRODUCTOS PARA LA LISTA:</h3>
   
     <div *ngFor="let productoS of listProductos; let i=index">
       <div id="container-producto-checkbox">
         <p #producto>{{productoS}}</p>
-        <input #checkbox id="checkbox" type="checkbox" (click)="checkboxClick(checkbox,producto)">
+        <input #checkbox id="checkbox" type="checkbox" (click)="checkboxClick(checkbox,producto)" >
       </div>
     </div>
     <div id="container-btn-finish">

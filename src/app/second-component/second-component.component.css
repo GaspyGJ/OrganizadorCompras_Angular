@@ -1,55 +1,98 @@
-
 *{
-    background-color: rgb(38, 38, 44);
+    background-color: rgb(60, 126, 131);
     color: rgb(236, 243, 243);
+    font-family:Arial, sans-serif;
+    
 }
-p{ /*nose porq los P agregaban espacios en blacno*/
+
+p{ /*nose porq los P agregaban espacios en blanco*/
     margin: 0;
+}
+
+#primerDiv{
+    padding-top:1em;
+    padding-right: 1em;
+}
+
+h3{
+    margin-bottom: 8%;
+    margin-left: 1em;
+    font-family:'Franklin Gothic Medium',Arial, sans-serif;
 }
 
 #p-buttom-volver{
     display: flex;
     justify-content: space-between;
     align-items:baseline;
-    margin-right: 1em;
-
+    padding-right: 1em;
+    border-bottom: 1px solid rgb(236, 243, 243);;
 }
 
 #p-buttom-volver button{
     padding: 0.1em 0.5em 0.1em 0.5em;
-    background-color: rgb(65, 70, 97);
+    background-color: rgb(63, 110, 114);
+    border:1px solid  rgb(51, 87, 90);
     border-radius: 0.5em;
-    border: solid 1px rgb(94, 99, 128);
     font-size: 0.8em;
 }
 
-
 #formulario #formulario-div1{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column; 
+    margin: 1em 1em 0 1em;
 }
-#primerDiv{
-    padding-top:20px
+
+#formulario #formulario-div1 #formulario-div2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+#formulario-divCantidad{
+    padding-right: 1em;
+    width: 10em;
+
+}
+
+#formulario-divCantidad input{
+    width: 9em;
+}
+
+#formulario-divPrecio input{
+    width: 9em;
+}
+
+
+.p-input{
+    font-size: 1.1em;
 }
 .input-add-product{
+    background-color: rgb(63, 110, 114);
+    border:1px solid  rgb(51, 87, 90);
     padding: 0.5em 0em 0.5em 0.5em;
+    border: 1px solid grey;
+    margin: 0.5em;   
 }
-.input-edit-product{
-    width: 6em;
-    border: none;
+
+
+.input-add-product::placeholder{
+    color:rgb(157, 166, 167);
 }
-#formulario #formulario-div2{
-    margin-top: 1.5em;
-  
-}
+
 #btn-add{
     padding: 0.5em 1em 0.5em 1em;
-    background-color: rgb(65, 70, 97);
+    background-color: rgb(63, 110, 114);
+    border:1px solid  rgb(51, 87, 90);
     border-radius: 0.5em;
-    border: solid 1px rgb(94, 99, 128);
-    display: block;
-    width: calc(100% - 2.5em);
-    margin: 1em 1em 0 1em;
+    width: calc(100% - 2em);
+    margin: 1em 1em 1em 1em;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+table th{
+    background-color: rgb(63, 110, 114);
 }
 #container-trash-edit{
     display: flex;
@@ -68,11 +111,32 @@ svg{
     background-color: transparent;
     margin-right: 1em;
 }
+
+.input-edit-product{
+    width: 5em;
+    border: none;
+    background-color: rgb(53, 58, 58);
+}
+
+#tablaProductos{
+    font-size: 0.7em;
+}
+
+td input{
+    background-color: rgb(63, 110, 114);
+    border:1px solid  rgb(51, 87, 90);
+}
+
 #accept-edit{
+    border: none;
     background-color: transparent;
 }
 #reseteador{
     display:none;
+}
+
+.p-abajo{
+    font-size: 1.1em;
 }
 
 #lista-faltantes{
@@ -86,26 +150,7 @@ hr{
 
 .li-faltantes{
     list-style: inside;
-}
-/*************************************************************/
-@media screen and ( max-width: 668px ){
-    #formulario #formulario-div1{
-        display: flex;
-        flex-direction: column; 
-        margin: 1em 1em 0 1em;
-    }
-    #tablaProductos{
-        font-size: 0.7em;
-    }
-    .input-add-product{
-       margin: 0.5em;
-    }
-    .input-edit-product{
-        width: 5em;
-        border: none;
-        background-color: rgb(53, 58, 58);
-    }
-
+    font-size: 1.1em;
 }
 
 
