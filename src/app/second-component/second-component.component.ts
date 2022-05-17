@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FirstComponentComponent } from '../first-component/first-component.component';
 import { ProductoComponent } from '../producto/producto.component';
 
+import swal from 'sweetalert';
+
 @Component({
   selector: 'app-second-component',
   templateUrl: './second-component.component.html',
@@ -60,24 +62,33 @@ export class SecondComponentComponent implements OnInit {
         //hago click en el reseteador para que vuelva a cargar los inputs y no queden rellenos
         reseteador.click()
       }
-      else{
-        alert('\n\nCuidado!! No se Permiten numeros Negativos');
+      else {
+        swal('Cuidado!', 'No se permiten numeros pegativos', 'warning');
       }
 
     }
 
     else {
-      alert('\nCuidado!! Hay datos necesarios para agregar el producto que estan en blanco.');
+      swal('Cuidado!!', 'Hay datos necesarios para agregar el producto que estan en blanco.', 'warning');
     }
 
   }
 
   eliminarProducto(producto: ProductoComponent, posicion: number) {
-    if( window.confirm(`\n\nSeguro que quiere eliminar "${producto.nombre}" de la tabla\n\n\n `)){
-      this.listaProductosEnTabla.splice(posicion, 1);
-      this.listaProductosEnTabla2.splice(posicion, 1);
-      this.totalActual -= producto.precio * producto.cantidad
-    }
+    swal({
+      title: "Estas seguro?",
+      text: `Seguro que quiere eliminar ${producto.nombre}" de la tabla`,
+      icon: "warning",
+      buttons: ['Cancelar', 'Aceptar'],
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.listaProductosEnTabla.splice(posicion, 1);
+          this.listaProductosEnTabla2.splice(posicion, 1);
+          this.totalActual -= producto.precio * producto.cantidad
+        }
+      });
   }
 
   modificarProducto(producto: ProductoComponent, posicion: number) {
@@ -111,14 +122,77 @@ export class SecondComponentComponent implements OnInit {
     //listaProductosSeleccionados TIPO STRING
   }
 
+  /* .swal-overlay .swal-overlay--show-modal{
+     background-color: rgb(63, 110, 114);
+ }
+ .swal-modal{
+     background-color: rgb(63, 110, 114);
+ }
+ 
+ .swal-icon .swal-icon--warning{
+     background-color: transparent;
+ }*/
+
+
   volverArmarLista(): void {
-    if( window.confirm('\n\nSi regresa a "Armar Lista" se borraran los datos introducidos en la tabla \n\nRecuerde que si falto algun producto puede agregarlo al carrito sin necesidad de que este en la lista\n\nDesea Regresar a Armar la Lista?\n ')){
-      this.router?.navigate([""]);
-    }
-    
+    swal({
+      title: "Estas seguro?",
+      text: "Si regresa a 'Armar Lista' se borraran los datos introducidos en la tabla \n\nRecuerde que si falto algun producto puede agregarlo al carrito sin necesidad de que este en la lista\n\nDesea Regresar a Armar la Lista?",
+      icon: "warning",
+      buttons: ['Cancelar', 'Aceptar'],
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.router?.navigate([""]);
+        }
+      });
+
   }
 
+  exportarTabla_BBDD(): void {
+    console.log("Guardados ('Mentira')");
+    /*const mysql= require('mysql')
+
+    //creo una conexion a la base de datos
+    const conexion = mysql.createConnection({
+        host:'localhost',
+        user:'root',
+        passsword:'Gaspy',
+        database:'comprasuper'
+    })
+
+      //me conecto a la base de datos
+    conexion.connect((error:any)=>{
+      if(error) throw error
+      console.log('La Conexion ah sido realizada correctamente')
+    })
+
+    //Inserto la "Compra" con la fecha y el precio total
+      let FechaHoy = new Date();
+      let FechaHoyS = String(FechaHoy.getFullYear()+'/'+ String(FechaHoy.getMonth() + 1).padStart(2, '0')+'/'+ FechaHoy.getDate()).padStart(2, '0');
+      console.log('La fecha de hoy es = '+ FechaHoyS);
+      conexion.query(`INSERT INTO comprasuper.compra(FechaCompra,PrecioTotal) VALUES ( '${FechaHoyS}' , ${111})`,
+      (error:any,rows:any)=>{
+       if(error) throw error
+       //rows son las filas de la tabla de la consulta.
+       //es un array de objetos
+        console.log("Se insertaron Correctamente"); 
+      });
+
+      conexion.query('SELECT * FROM comprasuper.compra',
+        (error:any,rows:any)=>{
+        if(error) throw error
+        console.log(rows); 
+      })
+    */
+  }
+
+
 }
+
+
+
 
 
 

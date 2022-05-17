@@ -19,6 +19,19 @@
     background-color: rgb(60, 126, 131);
 
   }
+/*  LOS ESTILOS DE LAS ALERTAS SWAL
+==========================================================================*/
+.swal-modal{
+  background-color: rgb(60, 126, 131);
+  border: 1px solid black;
+}
+.swal-overlay .swal-overlay--show-modal{
+    background-color: rgb(60, 126, 131);
+}
+.swal-icon .swal-icon--warning{
+  background-color: rgb(60, 126, 131);
+}
+
   html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
